@@ -7,22 +7,57 @@
 //
 
 import Foundation
+import RealmSwift
 
-class MockDb {
-   
-    static func drawing(for id: String) -> Drawing? {
-        return MockDb.db[id]
-    }
+protocol Database {
+    func drawing(for id: String) -> Drawing?
+    func update(drawing: Drawing, writeHandler: ((Drawing) -> Void)?)
+    func delete(drawing: Drawing)
+}
+
+class RealmDatabase: Database {
     
-    static func add(drawing: Drawing) {
-        MockDb.db[drawing.id] = drawing
-    }
-    
-    static func add(_ drawableLines: [DrawableLine], for id: String) {
-        if var drawing = MockDb.db[id] {
-            drawing.lines.append(contentsOf: drawableLines)
+    func drawing(for id: String) -> Drawing? {
+        do {
+            let realm = try Realm()
+            return realm.object(ofType: Drawing.self, forPrimaryKey: id)
+        } catch {
+            print("error: \(error)")
+            return nil
         }
     }
     
-    private static var db = [String: Drawing]()
+    func add(line: DrawableLine, in drawing: Drawing) {
+        do {
+            let realm = try Realm()
+            try realm.write {
+                drawing.lines.append(line)
+            }
+        } catch {
+            print("error: \(error)")
+        }
+    }
+    
+    func update(drawing: Drawing, writeHandler: ((Drawing) -> Void)? = nil) {
+        do {
+            let realm = try Realm()
+            try realm.write {
+                writeHandler?(drawing)
+                realm.add(drawing, update: true)
+            }
+        } catch {
+            print("error: \(error)")
+        }
+    }
+    
+    func delete(drawing: Drawing) {
+        do {
+            let realm = try Realm()
+            try realm.write {
+                realm.delete(drawing)
+            }
+        } catch {
+            print("error: \(error)")
+        }
+    }
 }

@@ -24,12 +24,6 @@ class DetailViewController: UIViewController {
             self.drawing = nil
         }
     }
-
-    override func viewWillDisappear(_ animated: Bool) {
-        if self.canvas?.drawing != nil {
-            MockDb.add(drawing: self.canvas.drawing) // TODO: remove this later and save every new line the user draws
-        }
-    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -38,12 +32,20 @@ class DetailViewController: UIViewController {
 }
 
 /************************************************************/
-// MARK: - CanvasDelegate
+// MARK: - Motion
 /************************************************************/
 
-extension DetailViewController: CanvasDelegate {
+extension DetailViewController {
     
-    func canvas(_ canvas: Canvas, didUpdateDrawing drawing: Drawing, withLine line: DrawableLine) {
-        
+    override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
+        guard motion == .motionShake else { return } // device was shaked
+        let title = "Clear the canvas?"
+        let message = "The canvas will be cleared from all of his content this is unreversable"
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "Clear Canvas", style: .destructive, handler: { [weak self] (action) in
+            self?.canvas.clear()
+        }))
+        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        self.present(alertController, animated: true, completion: nil)
     }
 }

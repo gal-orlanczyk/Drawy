@@ -20,7 +20,10 @@ class Canvas: UIView {
     var drawing: Drawing {
         get {
             let offset = Date().timeIntervalSince1970 - (self.firstDrawableTimestamp ?? ProcessInfo.processInfo.systemUptime)
-            self._drawing.endTime = offset
+            let db: Database = RealmDatabase()
+            db.update(drawing: _drawing) { (drawing) in
+                drawing.endTime = offset
+            }
             return self._drawing
         }
         set {
@@ -35,12 +38,12 @@ class Canvas: UIView {
         }
     }
     
-    fileprivate var mainImageView = UIImageView()
-    fileprivate var tempImageView = UIImageView()
+    fileprivate var drawingImageView = UIImageView()
+    fileprivate var toolImageView = UIImageView()
     fileprivate var backgroundImageView = UIImageView()
     
     /// The current tool used for the drawing.
-    fileprivate var tool = Tool.regular(properties: Tool.Properties())
+    fileprivate var tool = Tool(pattern: .regular)
     /// The path to draw, has points only on touches.
     fileprivate let path: UIBezierPath = {
         let path = UIBezierPath()
@@ -74,18 +77,18 @@ class Canvas: UIView {
         self.backgroundImageView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
         self.backgroundImageView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
         self.backgroundImageView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
-        self.addSubview(self.mainImageView)
-        self.mainImageView.translatesAutoresizingMaskIntoConstraints = false
-        self.mainImageView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
-        self.mainImageView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
-        self.mainImageView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
-        self.mainImageView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
-        self.addSubview(self.tempImageView)
-        self.tempImageView.translatesAutoresizingMaskIntoConstraints = false
-        self.tempImageView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
-        self.tempImageView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
-        self.tempImageView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
-        self.tempImageView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
+        self.addSubview(self.drawingImageView)
+        self.drawingImageView.translatesAutoresizingMaskIntoConstraints = false
+        self.drawingImageView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
+        self.drawingImageView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+        self.drawingImageView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
+        self.drawingImageView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
+        self.addSubview(self.toolImageView)
+        self.toolImageView.translatesAutoresizingMaskIntoConstraints = false
+        self.toolImageView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
+        self.toolImageView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+        self.toolImageView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
+        self.toolImageView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
         self.backgroundColor = UIColor.lightGray
     }
 }
@@ -98,24 +101,39 @@ extension Canvas {
     
     func draw() {
         UIGraphicsBeginImageContextWithOptions(self.frame.size, false, 0)
-        self.mainImageView.image?.draw(in: self.bounds)
+        self.drawingImageView.image?.draw(in: self.bounds)
         
         for drawableLine in _drawing.lines {
             let path = UIBezierPath()
             path.lineCapStyle = .round
-            path.lineWidth = drawableLine.tool.properties.width / self.scale
-            drawableLine.tool.properties.color.withAlphaComponent(drawableLine.tool.properties.alpha).setStroke()
-            for (i,point) in drawableLine.line.points.enumerated() {
+            path.lineWidth = drawableLine.tool.width / self.scale
+            drawableLine.tool.color.withAlphaComponent(drawableLine.tool.alpha).setStroke()
+            let canSmoothLine = drawableLine.line.points.count > 2
+            let points = drawableLine.line.points
+            for (i,point) in points.enumerated() {
                 if i == 0 {
                     path.move(to: point.cgPoint)
                 }
-                path.addLine(to: point.cgPoint)
+                if canSmoothLine && i > 2 && (i+1) % 4 == 0 {
+                    path.addCurve(to: points[i].cgPoint, controlPoint1: points[i-2].cgPoint, controlPoint2: points[i-1].cgPoint)
+                } else if !canSmoothLine {
+                    path.addLine(to: point.cgPoint)
+                }
             }
             path.stroke(with: drawableLine.tool.blendMode, alpha: 1)
         }
         
-        self.mainImageView.image = UIGraphicsGetImageFromCurrentImageContext()
+        self.drawingImageView.image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
+    }
+    
+    func clear() {
+        self.drawingImageView.image = nil
+        let db: Database = RealmDatabase()
+        db.update(drawing: self._drawing) { (drawing) in
+            drawing.lines.removeAll()
+            drawing.endTime = 0
+        }
     }
 }
 
@@ -155,7 +173,10 @@ extension Canvas {
             self.strokePath()
         }
         let line = Line(points: self.points)
-        self._drawing.lines.append(DrawableLine(line: line, tool: self.tool))
+        let db: Database = RealmDatabase()
+        db.update(drawing: self._drawing) { (drawing) in
+            drawing.lines.append(DrawableLine(line: line, tool: self.tool))
+        }
         // merge the temp view into the main
         self.mergeImageViews()
         // clear the current handled path
@@ -163,18 +184,6 @@ extension Canvas {
         self.points.removeAll()
         self.pointIndex = 0
         self.isTouchMoved = true
-    }
-}
-
-/************************************************************/
-// MARK: - Motion
-/************************************************************/
-
-extension Canvas {
-    
-    override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
-        guard motion == .motionShake else { return }
-        // TODO: display an alert with clear canvas option
     }
 }
 
@@ -187,17 +196,17 @@ private extension Canvas {
     func strokePath() {
         UIGraphicsBeginImageContextWithOptions(self.frame.size, false, 0)
         // TODO: check the effect of scaling
-        self.path.lineWidth = self.calculatePathLineWidth(toolWidth: self.tool.properties.width, scale: self.scale)
-        self.tool.properties.color.withAlphaComponent(self.tool.properties.alpha).setStroke()
+        self.path.lineWidth = self.calculatePathLineWidth(toolWidth: self.tool.width, scale: self.scale)
+        self.tool.color.withAlphaComponent(self.tool.alpha).setStroke()
         
         if self.tool.isEraser {
             // when erasing need to do it on the main image view screen.
-            self.mainImageView.image?.draw(in: self.bounds)
+            self.drawingImageView.image?.draw(in: self.bounds)
         }
         
         self.path.stroke(with: tool.blendMode, alpha: 1)
         
-        let targetImageView = self.tool.isEraser ? self.mainImageView : self.tempImageView
+        let targetImageView = self.tool.isEraser ? self.drawingImageView : self.toolImageView
         targetImageView.image = UIGraphicsGetImageFromCurrentImageContext()
         
         UIGraphicsEndImageContext()
@@ -206,12 +215,12 @@ private extension Canvas {
     func mergeImageViews() {
         UIGraphicsBeginImageContextWithOptions(self.frame.size, false, 0)
         
-        self.mainImageView.image?.draw(in: self.bounds)
-        self.tempImageView.image?.draw(in: self.bounds)
+        self.drawingImageView.image?.draw(in: self.bounds)
+        self.toolImageView.image?.draw(in: self.bounds)
         
-        self.mainImageView.image = UIGraphicsGetImageFromCurrentImageContext()
+        self.drawingImageView.image = UIGraphicsGetImageFromCurrentImageContext()
         // TOOD: for replay maybe append the current drawing here?
-        self.tempImageView.image = nil
+        self.toolImageView.image = nil
         
         UIGraphicsEndImageContext()
     }

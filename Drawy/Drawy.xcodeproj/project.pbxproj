@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		205223372003652400FA1E07 /* Drawing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 205223362003652400FA1E07 /* Drawing.swift */; };
-		205A15B120034F80008D06CF /* Tool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 205A15B020034F80008D06CF /* Tool.swift */; };
 		205A15B420035328008D06CF /* Canvas.swift in Sources */ = {isa = PBXBuildFile; fileRef = 205A15B320035328008D06CF /* Canvas.swift */; };
 		20B2055F2001FD2A0008CE87 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B2055E2001FD2A0008CE87 /* AppDelegate.swift */; };
 		20B205612001FD2A0008CE87 /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B205602001FD2A0008CE87 /* MasterViewController.swift */; };
@@ -17,11 +16,12 @@
 		20B205682001FD2A0008CE87 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 20B205672001FD2A0008CE87 /* Assets.xcassets */; };
 		20B2056B2001FD2A0008CE87 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 20B205692001FD2A0008CE87 /* LaunchScreen.storyboard */; };
 		20B2057720022E870008CE87 /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B2057620022E870008CE87 /* Database.swift */; };
+		4017F85146E781400E37DB78 /* Pods_Drawy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2ED6E731D256A4759568614B /* Pods_Drawy.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		190550B61C08FB4294E550A7 /* Pods-Drawy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Drawy.release.xcconfig"; path = "Pods/Target Support Files/Pods-Drawy/Pods-Drawy.release.xcconfig"; sourceTree = "<group>"; };
 		205223362003652400FA1E07 /* Drawing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Drawing.swift; sourceTree = "<group>"; };
-		205A15B020034F80008D06CF /* Tool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tool.swift; sourceTree = "<group>"; };
 		205A15B320035328008D06CF /* Canvas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Canvas.swift; sourceTree = "<group>"; };
 		20B2055B2001FD2A0008CE87 /* Drawy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Drawy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		20B2055E2001FD2A0008CE87 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -32,6 +32,8 @@
 		20B2056A2001FD2A0008CE87 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		20B2056C2001FD2A0008CE87 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		20B2057620022E870008CE87 /* Database.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
+		2ED6E731D256A4759568614B /* Pods_Drawy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Drawy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		75E8AB7F4BF887FB53123565 /* Pods-Drawy.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Drawy.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Drawy/Pods-Drawy.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -39,6 +41,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4017F85146E781400E37DB78 /* Pods_Drawy.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -66,6 +69,8 @@
 			children = (
 				20B2055D2001FD2A0008CE87 /* Drawy */,
 				20B2055C2001FD2A0008CE87 /* Products */,
+				863BA2AC481A90FA64D680DF /* Pods */,
+				AF338A8A762F36EE9139DD25 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -97,7 +102,6 @@
 		20B205722001FED70008CE87 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				205A15B020034F80008D06CF /* Tool.swift */,
 				205223362003652400FA1E07 /* Drawing.swift */,
 			);
 			path = Models;
@@ -111,6 +115,23 @@
 			path = Stores;
 			sourceTree = "<group>";
 		};
+		863BA2AC481A90FA64D680DF /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				75E8AB7F4BF887FB53123565 /* Pods-Drawy.debug.xcconfig */,
+				190550B61C08FB4294E550A7 /* Pods-Drawy.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		AF338A8A762F36EE9139DD25 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2ED6E731D256A4759568614B /* Pods_Drawy.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -118,9 +139,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 20B2056F2001FD2A0008CE87 /* Build configuration list for PBXNativeTarget "Drawy" */;
 			buildPhases = (
+				33DC0DA6F89AB7380A7B855B /* [CP] Check Pods Manifest.lock */,
 				20B205572001FD2A0008CE87 /* Sources */,
 				20B205582001FD2A0008CE87 /* Frameworks */,
 				20B205592001FD2A0008CE87 /* Resources */,
+				BD160F31E337C21B6455B2B1 /* [CP] Embed Pods Frameworks */,
+				5F7FACE5491096944F6A96CC /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -178,6 +202,62 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		33DC0DA6F89AB7380A7B855B /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Drawy-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		5F7FACE5491096944F6A96CC /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Drawy/Pods-Drawy-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BD160F31E337C21B6455B2B1 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Drawy/Pods-Drawy-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
+				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Drawy/Pods-Drawy-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		20B205572001FD2A0008CE87 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -185,7 +265,6 @@
 			files = (
 				205223372003652400FA1E07 /* Drawing.swift in Sources */,
 				205A15B420035328008D06CF /* Canvas.swift in Sources */,
-				205A15B120034F80008D06CF /* Tool.swift in Sources */,
 				20B205632001FD2A0008CE87 /* DetailViewController.swift in Sources */,
 				20B205612001FD2A0008CE87 /* MasterViewController.swift in Sources */,
 				20B2057720022E870008CE87 /* Database.swift in Sources */,
@@ -324,6 +403,7 @@
 		};
 		20B205702001FD2A0008CE87 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 75E8AB7F4BF887FB53123565 /* Pods-Drawy.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -339,6 +419,7 @@
 		};
 		20B205712001FD2A0008CE87 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 190550B61C08FB4294E550A7 /* Pods-Drawy.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
