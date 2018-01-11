@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ToolSelector" customModule="Drawy" customModuleProvider="target">
+            <connections>
+                <outlet property="blueSlider" destination="rwr-Jo-Zkl" id="WUw-Qn-2Hp"/>
+                <outlet property="greenSlider" destination="FRa-jV-Ntb" id="5qG-UN-80R"/>
+                <outlet property="presetColorsStackView" destination="9YS-JZ-2pP" id="NcO-2j-y3i"/>
+                <outlet property="redSlider" destination="Eg0-5i-B8k" id="1nM-IY-Ei7"/>
+                <outlet property="sizeSlider" destination="pZi-GH-gVY" id="iew-7s-jWs"/>
+                <outlet property="toolPreview" destination="sdx-XF-Vw1" id="g2e-8I-Ray"/>
+                <outlet property="toolTypeSegmentedControl" destination="FzF-Hv-zsq" id="VNj-X1-mdd"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="300" height="300"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <segmentedControl opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="FzF-Hv-zsq">
+                    <rect key="frame" x="20" y="20" width="260" height="29"/>
+                    <segments>
+                        <segment title="First"/>
+                        <segment title="Second"/>
+                    </segments>
+                </segmentedControl>
+                <stackView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="0wb-2j-abc">
+                    <rect key="frame" x="20" y="56" width="184" height="172"/>
+                    <subviews>
+                        <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="Eg0-5i-B8k">
+                            <rect key="frame" x="-2" y="0.0" width="188" height="44"/>
+                            <color key="tintColor" red="0.96161566840277779" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="thumbTintColor" red="0.96161566840000001" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </slider>
+                        <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="FRa-jV-Ntb">
+                            <rect key="frame" x="-2" y="43" width="188" height="44"/>
+                            <color key="tintColor" red="0.0" green="0.82297092013888884" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="thumbTintColor" red="0.0" green="0.82297092009999995" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </slider>
+                        <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="rwr-Jo-Zkl">
+                            <rect key="frame" x="-2" y="86" width="188" height="44"/>
+                            <color key="thumbTintColor" red="0.0" green="0.58980089430000004" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </slider>
+                        <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="1" maxValue="80" translatesAutoresizingMaskIntoConstraints="NO" id="pZi-GH-gVY">
+                            <rect key="frame" x="-2" y="129" width="188" height="44"/>
+                            <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </slider>
+                    </subviews>
+                </stackView>
+                <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" translatesAutoresizingMaskIntoConstraints="NO" id="9YS-JZ-2pP">
+                    <rect key="frame" x="20" y="236" width="260" height="44"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IHi-aF-Vl1" customClass="ColorView" customModule="Drawy" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="0.0" width="44" height="44"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="44" id="C7l-vd-nnf"/>
+                                <constraint firstAttribute="width" constant="44" id="kOX-Yu-5vJ"/>
+                            </constraints>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cjE-zC-dce" customClass="ColorView" customModule="Drawy" customModuleProvider="target">
+                            <rect key="frame" x="72" y="0.0" width="44" height="44"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="44" id="WMz-70-UuJ"/>
+                                <constraint firstAttribute="width" constant="44" id="ZbE-BK-Di2"/>
+                            </constraints>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="color" keyPath="fillColor">
+                                    <color key="value" red="0.96161566840000001" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kGi-me-fwM" customClass="ColorView" customModule="Drawy" customModuleProvider="target">
+                            <rect key="frame" x="144" y="0.0" width="44" height="44"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="44" id="Q4U-cq-K5P"/>
+                                <constraint firstAttribute="height" constant="44" id="Yo0-4x-Kgd"/>
+                            </constraints>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="color" keyPath="fillColor">
+                                    <color key="value" red="0.0" green="0.82297092009999995" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="y9v-bl-q5j" customClass="ColorView" customModule="Drawy" customModuleProvider="target">
+                            <rect key="frame" x="216" y="0.0" width="44" height="44"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="44" id="KuJ-US-fJv"/>
+                                <constraint firstAttribute="width" constant="44" id="dXj-Qk-GAL"/>
+                            </constraints>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="color" keyPath="fillColor">
+                                    <color key="value" red="0.0" green="0.58980089430000004" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="44" id="MNI-mm-kjV"/>
+                    </constraints>
+                </stackView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sdx-XF-Vw1" customClass="ToolView" customModule="Drawy" customModuleProvider="target">
+                    <rect key="frame" x="216" y="109.5" width="64" height="64"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="64" id="3zX-zb-wfs"/>
+                        <constraint firstAttribute="height" constant="64" id="YQ1-4s-baM"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="9YS-JZ-2pP" secondAttribute="bottom" constant="20" id="2gY-tz-FK8"/>
+                <constraint firstItem="0wb-2j-abc" firstAttribute="top" secondItem="FzF-Hv-zsq" secondAttribute="bottom" constant="8" id="6td-s6-go3"/>
+                <constraint firstItem="FzF-Hv-zsq" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="20" id="Djz-zn-lvx"/>
+                <constraint firstItem="0wb-2j-abc" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="EdB-IL-exg"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="FzF-Hv-zsq" secondAttribute="trailing" constant="20" id="Mon-Rw-cRA"/>
+                <constraint firstItem="9YS-JZ-2pP" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="PWO-cy-KWh"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="9YS-JZ-2pP" secondAttribute="trailing" constant="20" id="UnN-0U-dZe"/>
+                <constraint firstItem="9YS-JZ-2pP" firstAttribute="top" secondItem="0wb-2j-abc" secondAttribute="bottom" constant="8" id="XFI-LC-dai"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="sdx-XF-Vw1" secondAttribute="trailing" constant="20" id="bIJ-Q1-IkF"/>
+                <constraint firstItem="FzF-Hv-zsq" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="iOc-lp-8X1"/>
+                <constraint firstItem="sdx-XF-Vw1" firstAttribute="leading" secondItem="0wb-2j-abc" secondAttribute="trailing" constant="12" id="n8r-gU-N8x"/>
+                <constraint firstItem="sdx-XF-Vw1" firstAttribute="centerY" secondItem="0wb-2j-abc" secondAttribute="centerY" id="nfL-Rf-iAK"/>
+            </constraints>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <point key="canvasLocation" x="-162" y="-18"/>
+        </view>
+    </objects>
+</document>

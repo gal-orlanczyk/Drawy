@@ -8,13 +8,11 @@
 
 import UIKit
 
-protocol CanvasDelegate: class {
-    func canvas(_ canvas: Canvas, didUpdateDrawing drawing: Drawing, withLine line: DrawableLine)
-}
-
 class Canvas: UIView {
     
-    weak var delegate: CanvasDelegate?
+    /* ***********************************************************/
+    // MARK: - Internal Properties
+    /* ***********************************************************/
     
     var firstDrawableTimestamp: TimeInterval?
     var drawing: Drawing {
@@ -30,6 +28,12 @@ class Canvas: UIView {
             self._drawing = newValue
         }
     }
+    /// The current tool used for the drawing.
+    var tool = Tool(pattern: .regular)
+    
+    /* ***********************************************************/
+    // MARK: - Private Properties
+    /* ***********************************************************/
     
     fileprivate var _drawing: Drawing! {
         didSet(drawing) {
@@ -42,8 +46,6 @@ class Canvas: UIView {
     fileprivate var toolImageView = UIImageView()
     fileprivate var backgroundImageView = UIImageView()
     
-    /// The current tool used for the drawing.
-    fileprivate var tool = Tool(pattern: .regular)
     /// The path to draw, has points only on touches.
     fileprivate let path: UIBezierPath = {
         let path = UIBezierPath()
@@ -56,6 +58,10 @@ class Canvas: UIView {
     fileprivate var points = [Point]()
     /// indicates if the last touch event moved. used to infer if user had a continues touch or just one tap.
     fileprivate var isTouchMoved = false
+    
+    /* ***********************************************************/
+    // MARK: - Init
+    /* ***********************************************************/
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -70,25 +76,20 @@ class Canvas: UIView {
     private func initialize() {
         // save the first touch in the drawing if doesn't exist, for existing drawing will have the last time.
         self.firstDrawableTimestamp = ProcessInfo.processInfo.systemUptime
-        self.addSubview(self.backgroundImageView)
+        
         self.backgroundImageView.backgroundColor = UIColor.white
         self.backgroundImageView.translatesAutoresizingMaskIntoConstraints = false
-        self.backgroundImageView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
-        self.backgroundImageView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
-        self.backgroundImageView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
-        self.backgroundImageView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
-        self.addSubview(self.drawingImageView)
+        self.addSubview(self.backgroundImageView)
+        self.backgroundImageView.pin(to: self)
+        
         self.drawingImageView.translatesAutoresizingMaskIntoConstraints = false
-        self.drawingImageView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
-        self.drawingImageView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
-        self.drawingImageView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
-        self.drawingImageView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
-        self.addSubview(self.toolImageView)
+        self.addSubview(self.drawingImageView)
+        self.drawingImageView.pin(to: self)
+        
         self.toolImageView.translatesAutoresizingMaskIntoConstraints = false
-        self.toolImageView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
-        self.toolImageView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
-        self.toolImageView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
-        self.toolImageView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
+        self.addSubview(self.toolImageView)
+        self.toolImageView.pin(to: self)
+        
         self.backgroundColor = UIColor.lightGray
     }
 }
@@ -134,6 +135,14 @@ extension Canvas {
             drawing.lines.removeAll()
             drawing.endTime = 0
         }
+    }
+    
+    func getImage() -> UIImage? {
+        UIGraphicsBeginImageContext(self.drawingImageView.bounds.size)
+        self.drawingImageView.image?.draw(in: self.drawingImageView.frame)
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return image
     }
 }
 

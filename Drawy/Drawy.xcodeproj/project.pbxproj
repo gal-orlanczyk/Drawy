@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		205223372003652400FA1E07 /* Drawing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 205223362003652400FA1E07 /* Drawing.swift */; };
 		205A15B420035328008D06CF /* Canvas.swift in Sources */ = {isa = PBXBuildFile; fileRef = 205A15B320035328008D06CF /* Canvas.swift */; };
+		205A60002007EFD900337902 /* Tool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 205A5FFF2007EFD900337902 /* Tool.swift */; };
+		205A60042007F87F00337902 /* DrawingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 205A60032007F87F00337902 /* DrawingCell.swift */; };
 		20B2055F2001FD2A0008CE87 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B2055E2001FD2A0008CE87 /* AppDelegate.swift */; };
 		20B205612001FD2A0008CE87 /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B205602001FD2A0008CE87 /* MasterViewController.swift */; };
 		20B205632001FD2A0008CE87 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B205622001FD2A0008CE87 /* DetailViewController.swift */; };
@@ -16,6 +18,11 @@
 		20B205682001FD2A0008CE87 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 20B205672001FD2A0008CE87 /* Assets.xcassets */; };
 		20B2056B2001FD2A0008CE87 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 20B205692001FD2A0008CE87 /* LaunchScreen.storyboard */; };
 		20B2057720022E870008CE87 /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B2057620022E870008CE87 /* Database.swift */; };
+		20E8A71E20063F4A0062E6A1 /* ColorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E8A71D20063F4A0062E6A1 /* ColorView.swift */; };
+		20E8A720200654080062E6A1 /* ToolSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E8A71F200654080062E6A1 /* ToolSelector.swift */; };
+		20E8A722200654150062E6A1 /* ToolSelector.xib in Resources */ = {isa = PBXBuildFile; fileRef = 20E8A721200654150062E6A1 /* ToolSelector.xib */; };
+		20E8A724200660D80062E6A1 /* ToolView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E8A723200660D80062E6A1 /* ToolView.swift */; };
+		20E8A727200667670062E6A1 /* UIView+Constraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E8A726200667670062E6A1 /* UIView+Constraints.swift */; };
 		4017F85146E781400E37DB78 /* Pods_Drawy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2ED6E731D256A4759568614B /* Pods_Drawy.framework */; };
 /* End PBXBuildFile section */
 
@@ -23,6 +30,8 @@
 		190550B61C08FB4294E550A7 /* Pods-Drawy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Drawy.release.xcconfig"; path = "Pods/Target Support Files/Pods-Drawy/Pods-Drawy.release.xcconfig"; sourceTree = "<group>"; };
 		205223362003652400FA1E07 /* Drawing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Drawing.swift; sourceTree = "<group>"; };
 		205A15B320035328008D06CF /* Canvas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Canvas.swift; sourceTree = "<group>"; };
+		205A5FFF2007EFD900337902 /* Tool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tool.swift; sourceTree = "<group>"; };
+		205A60032007F87F00337902 /* DrawingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingCell.swift; sourceTree = "<group>"; };
 		20B2055B2001FD2A0008CE87 /* Drawy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Drawy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		20B2055E2001FD2A0008CE87 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		20B205602001FD2A0008CE87 /* MasterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterViewController.swift; sourceTree = "<group>"; };
@@ -32,6 +41,11 @@
 		20B2056A2001FD2A0008CE87 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		20B2056C2001FD2A0008CE87 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		20B2057620022E870008CE87 /* Database.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
+		20E8A71D20063F4A0062E6A1 /* ColorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorView.swift; sourceTree = "<group>"; };
+		20E8A71F200654080062E6A1 /* ToolSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolSelector.swift; sourceTree = "<group>"; };
+		20E8A721200654150062E6A1 /* ToolSelector.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ToolSelector.xib; sourceTree = "<group>"; };
+		20E8A723200660D80062E6A1 /* ToolView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolView.swift; sourceTree = "<group>"; };
+		20E8A726200667670062E6A1 /* UIView+Constraints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Constraints.swift"; sourceTree = "<group>"; };
 		2ED6E731D256A4759568614B /* Pods_Drawy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Drawy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		75E8AB7F4BF887FB53123565 /* Pods-Drawy.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Drawy.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Drawy/Pods-Drawy.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -59,9 +73,20 @@
 		205A15B2200352F4008D06CF /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				205A60022007F85900337902 /* DrawingCell */,
+				20E8A71C20063F2E0062E6A1 /* ColorView */,
+				20E8A71B20063DD70062E6A1 /* ToolSelector */,
 				20522335200363B100FA1E07 /* Canvas */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		205A60022007F85900337902 /* DrawingCell */ = {
+			isa = PBXGroup;
+			children = (
+				205A60032007F87F00337902 /* DrawingCell.swift */,
+			);
+			path = DrawingCell;
 			sourceTree = "<group>";
 		};
 		20B205522001FD2A0008CE87 = {
@@ -85,6 +110,7 @@
 		20B2055D2001FD2A0008CE87 /* Drawy */ = {
 			isa = PBXGroup;
 			children = (
+				20E8A725200667390062E6A1 /* Extensions */,
 				205A15B2200352F4008D06CF /* Views */,
 				20B2057520022D450008CE87 /* Stores */,
 				20B205722001FED70008CE87 /* Models */,
@@ -103,6 +129,7 @@
 			isa = PBXGroup;
 			children = (
 				205223362003652400FA1E07 /* Drawing.swift */,
+				205A5FFF2007EFD900337902 /* Tool.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -113,6 +140,32 @@
 				20B2057620022E870008CE87 /* Database.swift */,
 			);
 			path = Stores;
+			sourceTree = "<group>";
+		};
+		20E8A71B20063DD70062E6A1 /* ToolSelector */ = {
+			isa = PBXGroup;
+			children = (
+				20E8A71F200654080062E6A1 /* ToolSelector.swift */,
+				20E8A721200654150062E6A1 /* ToolSelector.xib */,
+			);
+			path = ToolSelector;
+			sourceTree = "<group>";
+		};
+		20E8A71C20063F2E0062E6A1 /* ColorView */ = {
+			isa = PBXGroup;
+			children = (
+				20E8A71D20063F4A0062E6A1 /* ColorView.swift */,
+				20E8A723200660D80062E6A1 /* ToolView.swift */,
+			);
+			path = ColorView;
+			sourceTree = "<group>";
+		};
+		20E8A725200667390062E6A1 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				20E8A726200667670062E6A1 /* UIView+Constraints.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		863BA2AC481A90FA64D680DF /* Pods */ = {
@@ -194,6 +247,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				20E8A722200654150062E6A1 /* ToolSelector.xib in Resources */,
 				20B2056B2001FD2A0008CE87 /* LaunchScreen.storyboard in Resources */,
 				20B205682001FD2A0008CE87 /* Assets.xcassets in Resources */,
 				20B205662001FD2A0008CE87 /* Main.storyboard in Resources */,
@@ -264,9 +318,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				205223372003652400FA1E07 /* Drawing.swift in Sources */,
+				20E8A724200660D80062E6A1 /* ToolView.swift in Sources */,
 				205A15B420035328008D06CF /* Canvas.swift in Sources */,
+				205A60002007EFD900337902 /* Tool.swift in Sources */,
+				205A60042007F87F00337902 /* DrawingCell.swift in Sources */,
+				20E8A71E20063F4A0062E6A1 /* ColorView.swift in Sources */,
 				20B205632001FD2A0008CE87 /* DetailViewController.swift in Sources */,
+				20E8A720200654080062E6A1 /* ToolSelector.swift in Sources */,
 				20B205612001FD2A0008CE87 /* MasterViewController.swift in Sources */,
+				20E8A727200667670062E6A1 /* UIView+Constraints.swift in Sources */,
 				20B2057720022E870008CE87 /* Database.swift in Sources */,
 				20B2055F2001FD2A0008CE87 /* AppDelegate.swift in Sources */,
 			);

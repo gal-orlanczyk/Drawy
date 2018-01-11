@@ -15,7 +15,7 @@ protocol Database {
     func delete(drawing: Drawing)
 }
 
-class RealmDatabase: Database {
+final class RealmDatabase: Database {
     
     func drawing(for id: String) -> Drawing? {
         do {
