@@ -111,22 +111,8 @@ extension Canvas {
             let path = self.path.copy() as! UIBezierPath
             path.lineWidth = drawableLine.tool.width
             drawableLine.tool.color.withAlphaComponent(drawableLine.tool.alpha).setStroke()
-            let canSmoothLine = drawableLine.line.points.count > 3
             let points = drawableLine.line.points
-            for (i,point) in points.enumerated() {
-                if i == 0 {
-                    path.move(to: point.cgPoint)
-                    if points.count == 1 {
-                        path.addLine(to: point.cgPoint)
-                    }
-                    continue
-                }
-                if canSmoothLine && i > 2 && (i+1) % 4 == 0 {
-                    path.addCurve(to: points[i].cgPoint, controlPoint1: points[i-2].cgPoint, controlPoint2: points[i-1].cgPoint)
-                } else if !canSmoothLine {
-                    path.addLine(to: point.cgPoint)
-                }
-            }
+            path.interpolatePointsWithHermite(interpolationPoints: Array(points))
             path.stroke(with: drawableLine.tool.blendMode, alpha: 1)
         }
         
@@ -176,18 +162,14 @@ extension Canvas {
         let currentCgPoint = touch.location(in: self)
         let currentPoint = Point(cgPoint: currentCgPoint, timestamp: touch.timestamp - self.firstDrawableTimestamp!)
         let previousPoint = self.points.last!.cgPoint
-        // FIXME: remove the printing
-        /*print("dx: \(abs(currentPoint.x - previousPoint.x)) dy: \(abs(currentPoint.y - previousPoint.y))")
-        print("timestamp dt: \(touch.timestamp - (self.firstDrawableTimestamp ?? 0) - self.points.last!.timestamp)")
-        print("bufferedpoints: \(self.bufferedPoints.count)")*/
+    
         if (abs(currentCgPoint.x - previousPoint.x) > 5 || abs(currentCgPoint.y - previousPoint.y) > 5) &&
             touch.timestamp - (self.firstDrawableTimestamp ?? 0) - self.points.last!.timestamp > 0.03 {
-            //self.path.move(to: previousPoint)
-            self.add(points: self.bufferedPoints + [currentPoint], to: self.path)
             self.points.append(contentsOf: self.bufferedPoints)
             self.bufferedPoints.removeAll()
+            self.path.interpolatePointsWithHermite(interpolationPoints: self.points + [currentPoint])
             self.strokePath()
-            if self.points.count > 50 { // TODO: maybe add a time variant here too for example if 1s passed without taking a snapshot.
+            if self.points.count > 40 {
                 self.mergeImageViews()
                 self.path.removeAllPoints()
                 self.line.points.append(objectsIn: self.points)
@@ -264,7 +246,6 @@ private extension Canvas {
         self.toolImageView.image?.draw(in: self.bounds)
         
         self.drawingImageView.image = UIGraphicsGetImageFromCurrentImageContext()
-        // TOOD: for replay maybe append the current drawing here?
         self.toolImageView.image = nil
         
         UIGraphicsEndImageContext()

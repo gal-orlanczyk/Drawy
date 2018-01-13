@@ -23,6 +23,7 @@
 		20E8A722200654150062E6A1 /* ToolSelector.xib in Resources */ = {isa = PBXBuildFile; fileRef = 20E8A721200654150062E6A1 /* ToolSelector.xib */; };
 		20E8A724200660D80062E6A1 /* ToolView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E8A723200660D80062E6A1 /* ToolView.swift */; };
 		20E8A727200667670062E6A1 /* UIView+Constraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E8A726200667670062E6A1 /* UIView+Constraints.swift */; };
+		20E95104200A2D6100EE9659 /* UIBezierPath+Hermite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E95103200A2D6100EE9659 /* UIBezierPath+Hermite.swift */; };
 		4017F85146E781400E37DB78 /* Pods_Drawy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2ED6E731D256A4759568614B /* Pods_Drawy.framework */; };
 /* End PBXBuildFile section */
 
@@ -46,6 +47,7 @@
 		20E8A721200654150062E6A1 /* ToolSelector.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ToolSelector.xib; sourceTree = "<group>"; };
 		20E8A723200660D80062E6A1 /* ToolView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolView.swift; sourceTree = "<group>"; };
 		20E8A726200667670062E6A1 /* UIView+Constraints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Constraints.swift"; sourceTree = "<group>"; };
+		20E95103200A2D6100EE9659 /* UIBezierPath+Hermite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIBezierPath+Hermite.swift"; sourceTree = "<group>"; };
 		2ED6E731D256A4759568614B /* Pods_Drawy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Drawy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		75E8AB7F4BF887FB53123565 /* Pods-Drawy.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Drawy.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Drawy/Pods-Drawy.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -164,6 +166,7 @@
 			isa = PBXGroup;
 			children = (
 				20E8A726200667670062E6A1 /* UIView+Constraints.swift */,
+				20E95103200A2D6100EE9659 /* UIBezierPath+Hermite.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -324,6 +327,7 @@
 				205A60042007F87F00337902 /* DrawingCell.swift in Sources */,
 				20E8A71E20063F4A0062E6A1 /* ColorView.swift in Sources */,
 				20B205632001FD2A0008CE87 /* DetailViewController.swift in Sources */,
+				20E95104200A2D6100EE9659 /* UIBezierPath+Hermite.swift in Sources */,
 				20E8A720200654080062E6A1 /* ToolSelector.swift in Sources */,
 				20B205612001FD2A0008CE87 /* MasterViewController.swift in Sources */,
 				20E8A727200667670062E6A1 /* UIView+Constraints.swift in Sources */,

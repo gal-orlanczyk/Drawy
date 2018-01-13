@@ -8,7 +8,6 @@
 
 import UIKit
 
-// TODO: handle screen rotations
 class DetailViewController: UIViewController {
 
     let toolSelectorViewTag = 1
