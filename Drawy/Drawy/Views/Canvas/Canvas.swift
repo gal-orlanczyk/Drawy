@@ -50,12 +50,15 @@ class Canvas: UIView {
     fileprivate let path: UIBezierPath = {
         let path = UIBezierPath()
         path.lineCapStyle = .round
+        path.lineJoinStyle = .round
         return path
     }()
-    fileprivate let scale = UIScreen.main.scale // TODO: check if needed
+    fileprivate var lastPoint: CGPoint!
     fileprivate var pointIndex = 0
     /// The current aggregated points for the touch events.
     fileprivate var points = [Point]()
+    fileprivate var bufferedPoints = [Point]()
+    fileprivate var line: Line!
     /// indicates if the last touch event moved. used to infer if user had a continues touch or just one tap.
     fileprivate var isTouchMoved = false
     
@@ -105,15 +108,18 @@ extension Canvas {
         self.drawingImageView.image?.draw(in: self.bounds)
         
         for drawableLine in _drawing.lines {
-            let path = UIBezierPath()
-            path.lineCapStyle = .round
-            path.lineWidth = drawableLine.tool.width / self.scale
+            let path = self.path.copy() as! UIBezierPath
+            path.lineWidth = drawableLine.tool.width
             drawableLine.tool.color.withAlphaComponent(drawableLine.tool.alpha).setStroke()
-            let canSmoothLine = drawableLine.line.points.count > 2
+            let canSmoothLine = drawableLine.line.points.count > 3
             let points = drawableLine.line.points
             for (i,point) in points.enumerated() {
                 if i == 0 {
                     path.move(to: point.cgPoint)
+                    if points.count == 1 {
+                        path.addLine(to: point.cgPoint)
+                    }
+                    continue
                 }
                 if canSmoothLine && i > 2 && (i+1) % 4 == 0 {
                     path.addCurve(to: points[i].cgPoint, controlPoint1: points[i-2].cgPoint, controlPoint2: points[i-1].cgPoint)
@@ -156,21 +162,44 @@ extension Canvas {
         guard let touch = touches.first else { return }
         self.isTouchMoved = false
         self.pointIndex = 0
-        self.points.append(Point(cgPoint: touch.location(in: self), timestamp: touch.timestamp - self.firstDrawableTimestamp!))
+        self.line = Line()
+        let currentPoint = touch.location(in: self)
+        self.path.move(to: currentPoint)
+        self.lastPoint = currentPoint
+        self.points.append(Point(cgPoint: currentPoint, timestamp: touch.timestamp - self.firstDrawableTimestamp!))
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let touch = touches.first else { return }
-        let currentPoint = touch.location(in: self)
-        let previousPoint = self.points.last!.cgPoint
         self.isTouchMoved = true
         self.pointIndex += 1
-        self.points.append(Point(cgPoint: currentPoint, timestamp: touch.timestamp - self.firstDrawableTimestamp!))
-        self.path.move(to: previousPoint)
-        self.path.addLine(to: currentPoint)
-        self.strokePath()
+        let currentCgPoint = touch.location(in: self)
+        let currentPoint = Point(cgPoint: currentCgPoint, timestamp: touch.timestamp - self.firstDrawableTimestamp!)
+        let previousPoint = self.points.last!.cgPoint
+        // FIXME: remove the printing
+        /*print("dx: \(abs(currentPoint.x - previousPoint.x)) dy: \(abs(currentPoint.y - previousPoint.y))")
+        print("timestamp dt: \(touch.timestamp - (self.firstDrawableTimestamp ?? 0) - self.points.last!.timestamp)")
+        print("bufferedpoints: \(self.bufferedPoints.count)")*/
+        if (abs(currentCgPoint.x - previousPoint.x) > 5 || abs(currentCgPoint.y - previousPoint.y) > 5) &&
+            touch.timestamp - (self.firstDrawableTimestamp ?? 0) - self.points.last!.timestamp > 0.03 {
+            //self.path.move(to: previousPoint)
+            self.add(points: self.bufferedPoints + [currentPoint], to: self.path)
+            self.points.append(contentsOf: self.bufferedPoints)
+            self.bufferedPoints.removeAll()
+            self.strokePath()
+            if self.points.count > 50 { // TODO: maybe add a time variant here too for example if 1s passed without taking a snapshot.
+                self.mergeImageViews()
+                self.path.removeAllPoints()
+                self.line.points.append(objectsIn: self.points)
+                self.points.removeAll()
+            }
+            self.points.append(currentPoint)
+            self.path.move(to: currentPoint.cgPoint)
+        } else {
+            self.bufferedPoints.append(currentPoint)
+        }
     }
-    
+        
     override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.touchesEnded(touches, with: event)
     }
@@ -181,16 +210,23 @@ extension Canvas {
             self.path.addLine(to: self.points[0].cgPoint)
             self.strokePath()
         }
-        let line = Line(points: self.points)
+        if bufferedPoints.count > 0 {
+            self.add(points: self.bufferedPoints, to: self.path)
+            self.strokePath()
+            self.points.append(contentsOf: self.bufferedPoints)
+        }
+        self.line.points.append(objectsIn: self.points)
         let db: Database = RealmDatabase()
         db.update(drawing: self._drawing) { (drawing) in
-            drawing.lines.append(DrawableLine(line: line, tool: self.tool))
+            drawing.lines.append(DrawableLine(line: self.line, tool: self.tool))
         }
         // merge the temp view into the main
         self.mergeImageViews()
         // clear the current handled path
         self.path.removeAllPoints()
         self.points.removeAll()
+        self.bufferedPoints.removeAll()
+        self.line = nil
         self.pointIndex = 0
         self.isTouchMoved = true
     }
@@ -204,8 +240,8 @@ private extension Canvas {
     
     func strokePath() {
         UIGraphicsBeginImageContextWithOptions(self.frame.size, false, 0)
-        // TODO: check the effect of scaling
-        self.path.lineWidth = self.calculatePathLineWidth(toolWidth: self.tool.width, scale: self.scale)
+        
+        self.path.lineWidth = self.tool.width
         self.tool.color.withAlphaComponent(self.tool.alpha).setStroke()
         
         if self.tool.isEraser {
@@ -234,8 +270,10 @@ private extension Canvas {
         UIGraphicsEndImageContext()
     }
     
-    func calculatePathLineWidth(toolWidth: CGFloat, scale: CGFloat) -> CGFloat {
-        return toolWidth / scale
+    func add(points: [Point], to path: UIBezierPath) {
+        for point in points {
+            path.addLine(to: point.cgPoint)
+        }
     }
 }
 

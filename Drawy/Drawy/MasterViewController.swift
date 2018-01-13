@@ -25,6 +25,7 @@ class MasterViewController: UITableViewController {
         navigationItem.leftBarButtonItem = editButtonItem
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(insertNewObject(_:)))
         navigationItem.rightBarButtonItem = addButton
+        self.lastSelectedIndexPath = IndexPath(row: 0, section: 0)
         if let split = splitViewController {
             let controllers = split.viewControllers
             detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? DetailViewController
@@ -33,7 +34,6 @@ class MasterViewController: UITableViewController {
                     self.insertNewObject(self)
                 }
                 self.tableView.selectRow(at: IndexPath(row: 0, section: 0), animated: false, scrollPosition: .top)
-                self.lastSelectedIndexPath = IndexPath(row: 0, section: 0)
                 self.performSegue(withIdentifier: "showDetail", sender: self)
             }
         }
@@ -113,6 +113,10 @@ class MasterViewController: UITableViewController {
         return cell
     }
 
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 129
+    }
+    
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         // Return false if you do not want the specified item to be editable.
         return true
@@ -120,6 +124,7 @@ class MasterViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.lastSelectedIndexPath = indexPath
+        self.performSegue(withIdentifier: "showDetail", sender: self)
     }
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
@@ -136,7 +141,9 @@ class MasterViewController: UITableViewController {
                 tableView.selectRow(at: newIndexPath, animated: true, scrollPosition: .top)
                 self.lastSelectedIndexPath = newIndexPath
             }
-            self.performSegue(withIdentifier: "showDetail", sender: self)
+            if self.splitViewController?.isCollapsed == false {
+                self.performSegue(withIdentifier: "showDetail", sender: self)
+            }
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
         }

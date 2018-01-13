@@ -6,7 +6,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -128,7 +127,6 @@
                                             <rect key="frame" x="0.0" y="0.0" width="100" height="127.5"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="100" id="D8a-sI-wH1"/>
-                                                <constraint firstAttribute="width" secondItem="IYK-A5-qNG" secondAttribute="height" multiplier="100:127" id="Dlw-nH-I51"/>
                                             </constraints>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Creation date:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hoj-fr-fvD">
@@ -159,7 +157,6 @@
                                 <connections>
                                     <outlet property="creationDateLabel" destination="jdQ-kI-Z8g" id="6MS-lE-YDz"/>
                                     <outlet property="thumbnailImageView" destination="IYK-A5-qNG" id="yOl-Ph-QGj"/>
-                                    <segue destination="vC3-pB-5Vb" kind="showDetail" identifier="showDetail" id="6S0-TO-JiA"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -170,6 +167,9 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Master" id="Zdf-7t-Un8"/>
+                    <connections>
+                        <segue destination="vC3-pB-5Vb" kind="showDetail" identifier="showDetail" id="Zfz-VK-S17"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rux-fX-hf1" sceneMemberID="firstResponder"/>
             </objects>
@@ -193,6 +193,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="6S0-TO-JiA"/>
+        <segue reference="Zfz-VK-S17"/>
     </inferredMetricsTieBreakers>
 </document>

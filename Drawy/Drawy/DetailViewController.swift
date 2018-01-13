@@ -68,31 +68,13 @@ private extension DetailViewController {
         let size: CGFloat = self.traitCollection.horizontalSizeClass == .regular &&
             self.traitCollection.verticalSizeClass == .regular ? 400 : 280
         // add the tool selector view and position it at the center.
-        let toolSelectorView = ToolSelector(frame: CGRect.zero)
-        self.toolSelectorView = toolSelectorView
-        toolSelectorView.tag = self.toolSelectorViewTag
-        toolSelectorView.translatesAutoresizingMaskIntoConstraints = false
-        self.view.addSubview(toolSelectorView)
-        toolSelectorView.widthAnchor.constraint(equalToConstant: size).isActive = true
-        toolSelectorView.heightAnchor.constraint(equalToConstant: size).isActive = true
-        toolSelectorView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
+        let toolSelectorView = self.addToolSelectorView(size: size)
         let topConstraint = toolSelectorView.topAnchor.constraint(equalTo: self.view.bottomAnchor)
         topConstraint.isActive = true
         // add gesture recognizers to dismiss the selector tool
-        let swipeDownGesutreRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(toolSelectorSwiped(swipeGesture:)))
-        swipeDownGesutreRecognizer.direction = .down
-        toolSelectorView.addGestureRecognizer(swipeDownGesutreRecognizer)
-        let swipeUpGesutreRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(toolSelectorSwiped(swipeGesture:)))
-        swipeUpGesutreRecognizer.direction = .up
-        toolSelectorView.addGestureRecognizer(swipeUpGesutreRecognizer)
-        // add a background view to catch tap to dismiss for the tool selector
-        let toolBackgroundView = UIView()
-        self.view.insertSubview(toolBackgroundView, belowSubview: toolSelectorView)
-        toolBackgroundView.pin(to: self.view)
-        toolBackgroundView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(toolSelectorTappedOutside(gesture:))))
-        self.toolBackgroundView = toolBackgroundView
+        self.addDismissBehaviorForToolSelector()
         // setup the tool view with current canvas tool
-        toolSelectorView.setup(with: self.canvas.tool, animated: true)
+        self.toolSelectorView?.setup(with: self.canvas.tool, animated: true)
         // animate the tool from the bottom of the screen
         UIView.animate(withDuration: self.toolSelectorAnimationDuration, animations: {
             topConstraint.isActive = false
@@ -190,5 +172,35 @@ private extension DetailViewController {
     func dismissToolSelectorView() {
         self.toolSelectorView?.removeFromSuperview()
         self.toolBackgroundView?.removeFromSuperview()
+    }
+    
+    func addToolSelectorView(size: CGFloat) -> ToolSelector {
+        let toolSelectorView = ToolSelector(frame: CGRect.zero)
+        self.toolSelectorView = toolSelectorView
+        toolSelectorView.tag = self.toolSelectorViewTag
+        toolSelectorView.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(toolSelectorView)
+        toolSelectorView.widthAnchor.constraint(equalToConstant: size).isActive = true
+        toolSelectorView.heightAnchor.constraint(equalToConstant: size).isActive = true
+        toolSelectorView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
+        return toolSelectorView
+    }
+    
+    func addDismissBehaviorForToolSelector() {
+        guard let toolSelectorView = self.toolSelectorView else { return }
+        let swipeDownGesutreRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(toolSelectorSwiped(swipeGesture:)))
+        swipeDownGesutreRecognizer.direction = .down
+        toolSelectorView.addGestureRecognizer(swipeDownGesutreRecognizer)
+        let swipeUpGesutreRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(toolSelectorSwiped(swipeGesture:)))
+        swipeUpGesutreRecognizer.direction = .up
+        toolSelectorView.addGestureRecognizer(swipeUpGesutreRecognizer)
+        // add a background view to catch tap to dismiss for the tool selector
+        let toolBackgroundView = UIView()
+        toolBackgroundView.translatesAutoresizingMaskIntoConstraints = false
+        self.view.insertSubview(toolBackgroundView, belowSubview: toolSelectorView)
+        toolBackgroundView.pin(to: self.view)
+        toolBackgroundView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(toolSelectorTappedOutside(gesture:))))
+        self.toolBackgroundView = toolBackgroundView
+        self.view.layoutIfNeeded()
     }
 }
