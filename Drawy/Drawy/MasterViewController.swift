@@ -44,9 +44,9 @@ class MasterViewController: UITableViewController {
         super.viewWillAppear(animated)
         // observe changes in realm
         self.setupRealmObserver()
-        if let lastSelectedIndexPath = self.lastSelectedIndexPath, let drawing = drawings?[lastSelectedIndexPath.row],
+        if let lastSelectedIndexPath = self.lastSelectedIndexPath, let drawings = self.drawings,
             let image = self.detailViewController?.canvas.getImage() {
-            
+            let drawing = drawings[lastSelectedIndexPath.row]
             let db: Database = RealmDatabase()
             db.update(drawing: drawing) { (drawing) in
                 drawing.thumbnailImageData = UIImagePNGRepresentation(image)
